@@ -113,32 +113,60 @@
         };
 
 
-
         let option = minPieOption;
         var snapshotImage = new Image();
 
         var chartDom = document.getElementById('chartContainer');
         var myChart = echarts.init(chartDom);
+
+        var lineHeight = 20;
+
+        /*
+         * Title: set option.title.textStyle.lineHeight and option.title.padding
+         */
+
+        option = {
+            title: {
+                text: "Hello\nWorld\nTesting\nthe\ncontainer\nheight",
+                textStyle: {
+                    lineHeight: 20,
+
+                },
+                borderColor: 'blue',
+                borderWidth: 3,
+                top: 0,
+                left: 0,
+                padding: 5
+
+            }
+        }
         myChart.setOption(option);
-        myChart.on('finished', () => {
-            snapshotImage.src = myChart.getDataURL();
-            console.log('myChart', myChart);
+        console.log('padding', option.title.padding)
+        chartDom.style.height = (option.title.text.split("\n").length * lineHeight) + option.title.padding * 2 + "px";
 
-            // show legend area info
-            const legendModel = myChart.getModel().getComponent('legend');
-            const legendView = myChart.getViewOfComponentModel(legendModel);
-            const legendRect = legendView.group.getBoundingRect();
-            const [x, y] = legendView.group.transformCoordToGlobal(legendRect.x, legendRect.y);
-            const { width, height } = legendRect;
-            console.log('legend Info', x, y, width, height);
-        })
+        // myChart.on('finished', () => {
+        //     snapshotImage.src = myChart.getDataURL();
+        //     console.log('myChart', myChart);
 
-        const legendModel = myChart.getModel().getComponent('legend');
-        const legendView = myChart.getViewOfComponentModel(legendModel);
-        const legendRect = legendView.group.getBoundingRect();
-        const [x, y] = legendView.group.transformCoordToGlobal(legendRect.x, legendRect.y);
-        const { width, height } = legendRect;
-        console.log('legend Info 2', x, y, width, height);
+        //     // show legend area info https://github.com/apache/echarts/issues/16480
+        //     // see also https://stackoverflow.com/questions/66363002/how-to-add-images-or-shapes-to-a-chart
+        //     // grid y2 adds space after the chart!!!: https://stackoverflow.com/questions/42828455/make-bigger-space-for-legend-in-echarts
+        //     //
+        //     //
+        //     const legendModel = myChart.getModel().getComponent('legend');
+        //     const legendView = myChart.getViewOfComponentModel(legendModel);
+        //     const legendRect = legendView.group.getBoundingRect();
+        //     const [x, y] = legendView.group.transformCoordToGlobal(legendRect.x, legendRect.y);
+        //     const { width, height } = legendRect;
+        //     console.log('legend Info', x, y, width, height);
+        // })
+
+        // const legendModel = myChart.getModel().getComponent('legend');
+        // const legendView = myChart.getViewOfComponentModel(legendModel);
+        // const legendRect = legendView.group.getBoundingRect();
+        // const [x, y] = legendView.group.transformCoordToGlobal(legendRect.x, legendRect.y);
+        // const { width, height } = legendRect;
+        // console.log('legend Info 2', x, y, width, height);
 
 
 
