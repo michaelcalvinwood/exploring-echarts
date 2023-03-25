@@ -126,23 +126,49 @@
          */
 
         option = {
-            title: {
+            title: [{
                 text: "Hello\nWorld\nTesting\nthe\ncontainer\nheight",
                 textStyle: {
                     lineHeight: 20,
 
                 },
-                borderColor: 'blue',
-                borderWidth: 3,
-                top: 0,
-                left: 0,
-                padding: 5
 
-            }
+                top: 10,
+                left: 10,
+                padding: 5
+            },
+            {
+                text: "Hello\nWorld\nTesting\nthe\ncontainer\nheight",
+                textStyle: {
+                    lineHeight: 20,
+
+                },
+
+                top: 10,
+                left: 100,
+                padding: 5
+            }]
         }
+
+        function getComponentDimensions(chart, name, index = -1) {
+            const model = chart.getModel().getComponent(name);
+            const view = chart.getViewOfComponentModel(model);
+            const rect = view.group.getBoundingRect();
+            const [x, y] = view.group.transformCoordToGlobal(rect.x, rect.y)
+            const { width, height } = rect;
+            console.log(`${name} dimensions`, x, y, width, height);
+        }
+
+
+        //myChart.getModel().getComponent('title')
+        //console.log('padding', option.title.padding)
+        //chartDom.style.height = (option.title.text.split("\n").length * lineHeight) + option.title.padding * 2 + "px";
+
+        myChart.on('finished', () => {
+            console.log('here')
+            getComponentDimensions(myChart, 'title', 1);
+        })
         myChart.setOption(option);
-        console.log('padding', option.title.padding)
-        chartDom.style.height = (option.title.text.split("\n").length * lineHeight) + option.title.padding * 2 + "px";
 
         // myChart.on('finished', () => {
         //     snapshotImage.src = myChart.getDataURL();
