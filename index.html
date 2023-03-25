@@ -150,6 +150,11 @@
             }]
         }
 
+
+        function getSeriesInfo(chart) {
+            console.log(chart.getModel().getSeries());
+        }
+
         function getComponentDimensions(chart, name, index = -1) {
             const model = chart.getModel().getComponent(name);
             const view = chart.getViewOfComponentModel(model);
@@ -167,6 +172,7 @@
         myChart.on('finished', () => {
             console.log('here')
             getComponentDimensions(myChart, 'title', 1);
+            getSeriesInfo(myChart);
         })
         myChart.setOption(option);
 
